@@ -1,10 +1,18 @@
-const getJoke = require("./joke");
-const core    = require("@actions/core");
+const getJoke = import("./joke.js");
+const core    = import("@actions/core");
 
 async function run() {
-    const joke = await getJoke();
-    console.log(joke);
-    core.setOutput("joke-output", joke);
+
+    const joke = getJoke.then((module) => {
+        console.log(module)
+        const j = module.default;
+        console.log(j)
+      }).catch(error => console.error('Error:', error));
+      
+    
+    (await core).setOutput("joke-output", joke);
+    // core.setOutput("joke-output", joke);
+    console.log("finished running")
 }
 
 

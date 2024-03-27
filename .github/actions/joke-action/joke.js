@@ -1,4 +1,4 @@
-const request = require("request-promise");
+const fetch = import("node-fetch");
 
 const options = {
     method: "GET",
@@ -11,6 +11,11 @@ const options = {
 };
 
 async function getJoke() {
-    const res = await request(options);
-    return res.joke;
+    const fetch = require('node-fetch');
+
+    fetch(options.uri, options.headers)
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+    
 }
